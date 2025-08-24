@@ -1,0 +1,14 @@
+# Server dependencies
+server/node_modules/
+
+# Environment variables file
+server/.env
+
+# Uploaded audio files
+server/uploads/
+
+# OS-specific files
+.DS_Store
+
+# Could_credientials
+server/google-credentials.json

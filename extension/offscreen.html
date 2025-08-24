@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><title>Offscreen</title></head>
+<body>
+<script>
+chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
+  if (msg.type === "get-tab-stream") {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          mandatory: {
+            chromeMediaSource: "tab",
+            chromeMediaSourceId: msg.streamId
+          }
+        }
+      });
+      chrome.runtime.sendMessage({ type: "tab-stream-ready", stream });
+    } catch (err) {
+      chrome.runtime.sendMessage({ type: "tab-stream-error", error: err.message });
+    }
+  }
+});
+</script>
+</body>
+</html>
