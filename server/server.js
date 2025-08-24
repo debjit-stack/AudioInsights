@@ -67,4 +67,17 @@ app.get('/api/reports', async (req, res) => {
   }
 });
 
+app.delete('/api/reports/:id', async (req, res) => {
+  try {
+    const report = await AudioReport.findByIdAndDelete(req.params.id);
+    if (!report) {
+      return res.status(404).json({ msg: 'Report not found' });
+    }
+    res.json({ msg: 'Report deleted successfully' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 app.listen(PORT, () => console.log(`🚀 Server listening on http://localhost:${PORT}`));
